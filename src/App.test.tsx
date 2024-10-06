@@ -35,5 +35,14 @@ describe('App.tsx Component', () => {
             expect(resultOf2Numbers).toEqual(3);
             expect(resultOf5Numbers).toEqual(15);
         });
+
+        test('Handle edge case for accepting preceding or succeeding commas, multiple commas in between', () => {
+            const resultOfPrecedingCommas = add(',1,2,34,22');
+            const resultOfSucceedingCommas = add('1,2,34,56,');
+            const resultOfMultipleCommasInBetween = add('9,8,,24,,5');
+            expect(resultOfPrecedingCommas).toEqual(59);
+            expect(resultOfSucceedingCommas).toEqual(93);
+            expect(resultOfMultipleCommasInBetween).toEqual(46);
+        });
     });
 });

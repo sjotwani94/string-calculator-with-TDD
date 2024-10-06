@@ -9,7 +9,9 @@ export const add = (numbers: string): number => {
     let result = 0;
     const arrayOfNumbers = numbers.split(',');
     arrayOfNumbers.forEach((value) => {
-        result += parseInt(value);
+        if (!Number.isNaN(parseInt(value))) {
+            result += parseInt(value);
+        }
     });
     return result;
 };
