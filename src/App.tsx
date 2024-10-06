@@ -6,7 +6,12 @@ export const add = (numbers: string): number => {
     if (numbers === '') {
         return 0;
     }
-    return 1;
+    let result = 0;
+    const arrayOfNumbers = numbers.split(',');
+    arrayOfNumbers.forEach((value) => {
+        result += parseInt(value);
+    });
+    return result;
 };
 
 function App() {

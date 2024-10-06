@@ -23,5 +23,17 @@ describe('App.tsx Component', () => {
             const result = add('');
             expect(result).toEqual(0);
         });
+
+        test('Sending a single number as string should return that number', () => {
+            const result = add('2');
+            expect(result).toEqual(2);
+        });
+
+        test('Sending 2 or more numbers as string of comma-separated values should result in addition of the numbers', () => {
+            const resultOf2Numbers = add('1,2');
+            const resultOf5Numbers = add('1,2,3,4,5');
+            expect(resultOf2Numbers).toEqual(3);
+            expect(resultOf5Numbers).toEqual(15);
+        });
     });
 });
