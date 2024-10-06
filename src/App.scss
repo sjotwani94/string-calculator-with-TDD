@@ -1,0 +1,21 @@
+@use 'styles/abstracts' as *;
+
+.app-container {
+    height: 100vh;
+    background-image: url('https://wallpapers.com/images/featured/math-zarpq292tmb3whun.jpg');
+
+    &-header {
+        padding: 20px;
+        background-color: $darkblue;
+        color: $greypurple;
+        font-size: $heading4;
+        font-family: $defaultfont;
+    }
+
+    &-body {
+        display: flex;
+        width: 100%;
+        margin-top: 100px;
+        justify-content: center;
+    }
+}
