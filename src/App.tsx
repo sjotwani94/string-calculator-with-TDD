@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Button, Card, Form, Toast } from 'react-bootstrap';
 import './App.scss';
 
-const addCommaSeparatedNumbers = (numbers: string): number => {
+const addDelimiterSeparatedNumbers = (numbers: string, delimiter = ','): number => {
     let result = 0;
-    const arrayOfNumbers = numbers.split(',');
+    const arrayOfNumbers = numbers.split(delimiter);
     arrayOfNumbers.forEach((value) => {
         if (!Number.isNaN(parseInt(value))) {
             result += parseInt(value);
@@ -20,11 +20,16 @@ export const add = (numbers: string): number => {
     let result = 0;
     if (numbers.includes('\n')) {
         const arrayOfNumbers = numbers.split('\n');
+        let delimiter = ',';
+        if (arrayOfNumbers[0].includes('//')) {
+            delimiter = arrayOfNumbers[0].charAt(arrayOfNumbers[0].length - 1);
+            arrayOfNumbers.shift();
+        }
         arrayOfNumbers.forEach((value) => {
-            result += addCommaSeparatedNumbers(value);
+            result += addDelimiterSeparatedNumbers(value, delimiter);
         });
     } else {
-        result = addCommaSeparatedNumbers(numbers);
+        result = addDelimiterSeparatedNumbers(numbers);
     }
     return result;
 };

@@ -51,5 +51,12 @@ describe('App.tsx Component', () => {
             expect(firstTestCaseResult).toEqual(6);
             expect(secondTestCaseResult).toEqual(63);
         });
+
+        test('Sending new delimiter like this: //[delimiter]\n[numbers…] should yield correct result', () => {
+            const firstTestCaseResult = add('//$\n2$32$28');
+            const secondTestCaseResult = add('//^\n1^2\n34^5\n6\n7^8');
+            expect(firstTestCaseResult).toEqual(62);
+            expect(secondTestCaseResult).toEqual(63);
+        });
     });
 });
