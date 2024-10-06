@@ -44,5 +44,12 @@ describe('App.tsx Component', () => {
             expect(resultOfSucceedingCommas).toEqual(93);
             expect(resultOfMultipleCommasInBetween).toEqual(46);
         });
+
+        test('While sending new line characters inside input string, they should also be treated as delimiters', () => {
+            const firstTestCaseResult = add('1\n2,3');
+            const secondTestCaseResult = add('1,2\n34,5\n6\n7,8');
+            expect(firstTestCaseResult).toEqual(6);
+            expect(secondTestCaseResult).toEqual(63);
+        });
     });
 });

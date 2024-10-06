@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { Button, Card, Form, Toast } from 'react-bootstrap';
 import './App.scss';
 
-export const add = (numbers: string): number => {
-    if (numbers === '') {
-        return 0;
-    }
+const addCommaSeparatedNumbers = (numbers: string): number => {
     let result = 0;
     const arrayOfNumbers = numbers.split(',');
     arrayOfNumbers.forEach((value) => {
@@ -13,6 +10,22 @@ export const add = (numbers: string): number => {
             result += parseInt(value);
         }
     });
+    return result;
+};
+
+export const add = (numbers: string): number => {
+    if (numbers === '') {
+        return 0;
+    }
+    let result = 0;
+    if (numbers.includes('\n')) {
+        const arrayOfNumbers = numbers.split('\n');
+        arrayOfNumbers.forEach((value) => {
+            result += addCommaSeparatedNumbers(value);
+        });
+    } else {
+        result = addCommaSeparatedNumbers(numbers);
+    }
     return result;
 };
 
@@ -38,6 +51,7 @@ function App() {
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Type A Numerical Expression Here:</Form.Label>
                                     <Form.Control
+                                        as="textarea"
                                         size="lg"
                                         type="text"
                                         placeholder="Example: '1,2,3,4'"
