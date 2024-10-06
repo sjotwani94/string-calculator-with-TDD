@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App, { add } from './App';
 
 describe('App.tsx Component', () => {
     describe('render function', () => {
@@ -15,6 +15,13 @@ describe('App.tsx Component', () => {
             const buttonElement = screen.getByText(/Calculate Result!/i);
             expect(buttonElement).toBeInTheDocument();
             expect(buttonElement.tagName).toBe('BUTTON');
+        });
+    });
+
+    describe('add function', () => {
+        test('Sending Empty String as the Parameter should return 0', () => {
+            const result = add('');
+            expect(result).toEqual(0);
         });
     });
 });
