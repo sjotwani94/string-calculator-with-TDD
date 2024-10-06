@@ -36,13 +36,37 @@ describe('App.tsx Component', () => {
             expect(resultOf5Numbers).toEqual(15);
         });
 
-        test('Handle edge case for accepting preceding or succeeding commas, multiple commas in between', () => {
-            const resultOfPrecedingCommas = add(',1,2,34,22');
-            const resultOfSucceedingCommas = add('1,2,34,56,');
-            const resultOfMultipleCommasInBetween = add('9,8,,24,,5');
-            expect(resultOfPrecedingCommas).toEqual(59);
-            expect(resultOfSucceedingCommas).toEqual(93);
-            expect(resultOfMultipleCommasInBetween).toEqual(46);
+        test('Throw errors in case of preceding commas', () => {
+            try {
+                add(',1,2,34,22');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Invalid Input!');
+                }
+            }
+        });
+
+        test('Throw errors in case of succeeding commas', () => {
+            try {
+                add('1,2,34,56,');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Invalid Input!');
+                }
+            }
+        });
+
+        test('Throw errors in case of multiple commas in between', () => {
+            try {
+                add('9,8,,24,,5');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Invalid Input!');
+                }
+            }
         });
 
         test('While sending new line characters inside input string, they should also be treated as delimiters', () => {

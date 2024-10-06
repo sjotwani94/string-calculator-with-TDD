@@ -6,14 +6,17 @@ let listOfNegativeNumbers = '';
 const addDelimiterSeparatedNumbers = (numbers: string, delimiter = ','): number => {
     let result = 0;
     const arrayOfNumbers = numbers.split(delimiter);
+
     arrayOfNumbers.forEach((value) => {
-        if (!Number.isNaN(parseInt(value))) {
+        if (!Number.isNaN(parseInt(value)) && /^[-]?\d+$/.test(value)) {
             if (parseInt(value) < 0) {
                 listOfNegativeNumbers === ''
                     ? (listOfNegativeNumbers += value)
                     : (listOfNegativeNumbers += ', ' + value);
             }
             result += parseInt(value);
+        } else {
+            throw new Error('Invalid Input!');
         }
     });
     return result;
