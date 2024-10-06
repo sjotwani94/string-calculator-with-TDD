@@ -2,11 +2,17 @@ import { useState } from 'react';
 import { Button, Card, Form, Toast } from 'react-bootstrap';
 import './App.scss';
 
+let listOfNegativeNumbers = '';
 const addDelimiterSeparatedNumbers = (numbers: string, delimiter = ','): number => {
     let result = 0;
     const arrayOfNumbers = numbers.split(delimiter);
     arrayOfNumbers.forEach((value) => {
         if (!Number.isNaN(parseInt(value))) {
+            if (parseInt(value) < 0) {
+                listOfNegativeNumbers === ''
+                    ? (listOfNegativeNumbers += value)
+                    : (listOfNegativeNumbers += ', ' + value);
+            }
             result += parseInt(value);
         }
     });
@@ -14,6 +20,7 @@ const addDelimiterSeparatedNumbers = (numbers: string, delimiter = ','): number 
 };
 
 export const add = (numbers: string): number => {
+    listOfNegativeNumbers = '';
     if (numbers === '') {
         return 0;
     }
@@ -31,6 +38,9 @@ export const add = (numbers: string): number => {
     } else {
         result = addDelimiterSeparatedNumbers(numbers);
     }
+    if (listOfNegativeNumbers !== '') {
+        throw new Error('Negative numbers not allowed ' + listOfNegativeNumbers);
+    }
     return result;
 };
 
@@ -38,10 +48,19 @@ function App() {
     const [stringOfNumbers, setStringOfNumbers] = useState('');
     const [resultOfAddition, setResultOfAddition] = useState(0);
     const [showResult, setShowResult] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const showResultAsToast = () => {
-        setResultOfAddition(add(stringOfNumbers));
-        setShowResult(true);
+        try {
+            setResultOfAddition(add(stringOfNumbers));
+            setShowResult(true);
+        } catch (error) {
+            setShowError(true);
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            }
+        }
     };
 
     return (
@@ -78,6 +97,12 @@ function App() {
                                 <strong className="me-auto">Result:</strong>
                             </Toast.Header>
                             <Toast.Body className="text-white">Sum Of Numbers is {resultOfAddition}</Toast.Body>
+                        </Toast>
+                        <Toast bg="danger" show={showError} onClose={() => setShowError(false)}>
+                            <Toast.Header>
+                                <strong className="me-auto">ERROR:</strong>
+                            </Toast.Header>
+                            <Toast.Body className="text-white">{errorMessage}</Toast.Body>
                         </Toast>
                     </Card.Body>
                 </Card>

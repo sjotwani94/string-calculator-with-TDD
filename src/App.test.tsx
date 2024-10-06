@@ -58,5 +58,32 @@ describe('App.tsx Component', () => {
             expect(firstTestCaseResult).toEqual(62);
             expect(secondTestCaseResult).toEqual(63);
         });
+
+        test('Sending negative numbers should throw an exception with all the negatives listed', () => {
+            try {
+                add('//$\n-2$32$-28');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Negative numbers not allowed -2, -28');
+                }
+            }
+
+            try {
+                add('//^\n1^-2\n34^5\n-6\n-7^8');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Negative numbers not allowed -2, -6, -7');
+                }
+            }
+        });
+
+        test('Sending - (minus sign) as delimiter should yield a correct parsed result instead of throwing an error', () => {
+            const firstTestCaseResult = add('//-\n2-32-28-11');
+            const secondTestCaseResult = add('//-\n1-2\n34-9\n6\n7-8');
+            expect(firstTestCaseResult).toEqual(73);
+            expect(secondTestCaseResult).toEqual(67);
+        });
     });
 });
