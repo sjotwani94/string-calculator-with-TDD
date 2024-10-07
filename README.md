@@ -1,5 +1,5 @@
-# string-calculator-with-TDD
-This Basic Web Application consists of a String Calculator developed using Test Driven Development. It is built using React.js with TypeScript and Tests are written using Jest.
+# String Calculator with TDD
+This Basic Web Application consists of a String Calculator developed using Test Driven Development (TDD). It is built using React.js with TypeScript, Bootstrap and Tests are written using Jest. The application tries to cover all the scenarios mentioned inside this: https://osherove.com/tdd-kata-1/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
