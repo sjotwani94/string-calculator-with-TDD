@@ -14,7 +14,9 @@ const addDelimiterSeparatedNumbers = (numbers: string, delimiter = ','): number 
                     ? (listOfNegativeNumbers += value)
                     : (listOfNegativeNumbers += ', ' + value);
             }
-            result += parseInt(value);
+            if (parseInt(value) <= 1000) {
+                result += parseInt(value);
+            }
         } else {
             throw new Error('Invalid Input!');
         }
@@ -56,9 +58,11 @@ function App() {
 
     const showResultAsToast = () => {
         try {
+            setShowError(false);
             setResultOfAddition(add(stringOfNumbers));
             setShowResult(true);
         } catch (error) {
+            setShowResult(false);
             setShowError(true);
             if (error instanceof Error) {
                 setErrorMessage(error.message);

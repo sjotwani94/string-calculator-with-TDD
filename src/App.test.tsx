@@ -109,5 +109,12 @@ describe('App.tsx Component', () => {
             expect(firstTestCaseResult).toEqual(73);
             expect(secondTestCaseResult).toEqual(67);
         });
+
+        test('Sending values greater than 1000 should yield a result excluding those values', () => {
+            const firstTestCaseResult = add('//-\n2-1001-28-1921');
+            const secondTestCaseResult = add('1\n1113,6\n7,1008');
+            expect(firstTestCaseResult).toEqual(30);
+            expect(secondTestCaseResult).toEqual(14);
+        });
     });
 });
