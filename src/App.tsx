@@ -34,7 +34,19 @@ export const add = (numbers: string): number => {
         const arrayOfNumbers = numbers.split('\n');
         let delimiter = ',';
         if (arrayOfNumbers[0].includes('//')) {
-            delimiter = arrayOfNumbers[0].charAt(arrayOfNumbers[0].length - 1);
+            const indexOfStartingSquareBrace = arrayOfNumbers[0].indexOf('[');
+            const indexOfEndingSquareBrace = arrayOfNumbers[0].indexOf(']');
+            if (
+                arrayOfNumbers[0].includes('[') &&
+                arrayOfNumbers[0].includes(']') &&
+                indexOfStartingSquareBrace < indexOfEndingSquareBrace
+            ) {
+                delimiter = arrayOfNumbers[0].substring(indexOfStartingSquareBrace + 1, indexOfEndingSquareBrace);
+            } else if (arrayOfNumbers[0].length === 3) {
+                delimiter = arrayOfNumbers[0].charAt(arrayOfNumbers[0].length - 1);
+            } else {
+                throw new Error('Invalid Input!');
+            }
             arrayOfNumbers.shift();
         }
         arrayOfNumbers.forEach((value) => {

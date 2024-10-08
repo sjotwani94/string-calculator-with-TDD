@@ -83,6 +83,17 @@ describe('App.tsx Component', () => {
             expect(secondTestCaseResult).toEqual(63);
         });
 
+        test('Throw error in case of multiple characters after // inside input string', () => {
+            try {
+                add('//$$$\n2$32$28');
+            } catch (error) {
+                if (error instanceof Error) {
+                    // eslint-disable-next-line jest/no-conditional-expect
+                    expect(error.message).toEqual('Invalid Input!');
+                }
+            }
+        });
+
         test('Sending negative numbers should throw an exception with all the negatives listed', () => {
             try {
                 add('//$\n-2$32$-28');
@@ -115,6 +126,13 @@ describe('App.tsx Component', () => {
             const secondTestCaseResult = add('1\n1113,6\n7,1008');
             expect(firstTestCaseResult).toEqual(30);
             expect(secondTestCaseResult).toEqual(14);
+        });
+
+        test('Sending new delimiter of any length like this (delimiter being enclosed within []): //[delimiter]\n[numbers…] should yield correct result', () => {
+            const firstTestCaseResult = add('//[$$$]\n2$$$32$$$28');
+            const secondTestCaseResult = add('//[##]\n1##2\n34##5\n6\n7##8');
+            expect(firstTestCaseResult).toEqual(62);
+            expect(secondTestCaseResult).toEqual(63);
         });
     });
 });
